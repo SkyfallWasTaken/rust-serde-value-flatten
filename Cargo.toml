@@ -15,4 +15,4 @@ ovh-ldp = []
 
 [dependencies]
 serde = "1.0"
-serde-value = "0.6"
+serde-value = "0.7"
