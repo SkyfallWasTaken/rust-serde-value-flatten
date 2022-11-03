@@ -1,4 +1,4 @@
-// Copyright 2019-present, OVH SAS
+// Copyright 2019-present, OVH SAS.
 // All rights reserved.
 //
 // This OVH Software is licensed to you under the MIT license <LICENSE-MIT
