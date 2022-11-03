@@ -28,8 +28,8 @@ impl FlatSerializer {
     fn format_key(&self, xpath: &str, key: &str, _value: &Value) -> String {
         match (xpath, key) {
             (_, "") => String::new(),
-            ("", k) => format!("{}{}", self.prefix, k),
-            (x, k) => format!("{}{}{}", x, self.key_separator, k),
+            ("", k) => format!("{}{k}", self.prefix),
+            (x, k) => format!("{x}{}{k}", self.key_separator),
         }
     }
 
@@ -54,7 +54,7 @@ impl FlatSerializer {
                 for (i, val) in values.iter().enumerate() {
                     parts.append(&mut self.disassemble(
                         &self.format_key(xpath, key, value),
-                        &format!("{}", i),
+                        &format!("{i}"),
                         val,
                     ));
                 }

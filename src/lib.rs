@@ -77,8 +77,8 @@ mod ser;
 ///
 /// # Configuration
 ///
-/// * **key_separator**: Separator to use at each level change.
-/// * **prefix**: Prefix to use on the first level before the attribute / key / index name
+/// * `key_separator`: Separator to use at each level change.
+/// * `prefix`: Prefix to use on the first level before the attribute / key / index name
 ///
 /// ## Example
 ///
@@ -99,12 +99,10 @@ mod ser;
 ///     d: SubFoo,
 /// }
 ///
-/// fn main() {
-///     let foo = Foo { a: "test".into(), b: 0.5, c: vec![5, 9], d: SubFoo { a: "subtest".into(), b: 695217 } };
-///     let ser = serde_value_flatten::to_flatten_maptree("|", None, &foo).unwrap();
+/// let foo = Foo { a: "test".into(), b: 0.5, c: vec![5, 9], d: SubFoo { a: "subtest".into(), b: 695217 } };
+/// let ser = serde_value_flatten::to_flatten_maptree("|", None, &foo).unwrap();
 ///
-///     println!("{}", serde_json::to_string_pretty(&ser).unwrap());
-/// }
+/// println!("{}", serde_json::to_string_pretty(&ser).unwrap());
 /// ```
 /// **Output**:
 /// ```json
@@ -117,14 +115,11 @@ mod ser;
 ///   "d|b": 695217
 /// }
 /// ```
-pub fn to_flatten_maptree<T: ?Sized>(
+pub fn to_flatten_maptree<T: ?Sized + serde::Serialize>(
     key_separator: &str,
     prefix: Option<&str>,
     src: &T,
-) -> Result<BTreeMap<serde_value::Value, serde_value::Value>, serde_value::SerializerError>
-where
-    T: serde::Serialize,
-{
+) -> Result<BTreeMap<serde_value::Value, serde_value::Value>, serde_value::SerializerError> {
     Ok(
         ser::FlatSerializer::new(key_separator.into(), prefix.unwrap_or("").into()).disassemble(
             "",
